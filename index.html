@@ -269,7 +269,13 @@
               body: formData,
               files: formFile.files[0]
             }).then((response) => {
-  
+              document.getElementById('fullName').value = "";
+              document.getElementById('phone').value = "";
+              document.getElementById('email').value = "";
+              document.getElementById('position').selectedIndex = 0;
+              document.getElementById('location').selectedIndex = 0;
+              document.getElementById('formFile').value = "";
+
               if(response.status === 200){
                 Swal.fire({
                   title: 'Success!',
