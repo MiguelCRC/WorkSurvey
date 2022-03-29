@@ -20,8 +20,6 @@ module.exports = (sequelize, DataTypes) => {
     position: DataTypes.STRING,
     location: DataTypes.STRING,
     resumeName: DataTypes.STRING,
-    employeeStatus: DataTypes.STRING,
-    startDate: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Survey',

@@ -19,14 +19,20 @@
             <div class="row">
                 <div class="col-6">
                     <a href="https://crc.global/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                      <img src="./images/CRC_Global-RGB.png" width="150" height="32"></img>
+                      <img src="./images/CRC_Family.png" width="200" height="90"></img>
                     </a>
-                </div>
-                <div class="col-6">
-                    <span class="fs-5">Brookings, South Dakota</span>
                 </div>
             </div>
           </header>
+
+          <div class="subTitle">
+            <h3>JOIN OUR FAMILY!</h3>
+          </div>
+          <div class="info">
+            <h5>Thanks for wanting to be part of our family of companies! 
+              Please fill out your information and select the position you are applying for.</h5>
+          </div>
+
           <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">Full Name</span>
             <input id="fullName" type="text" class="form-control" placeholder="Peter Smith" aria-label="fullname" aria-describedby="basic-addon1">
@@ -63,29 +69,17 @@
             </select>
           </div>
 
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="employeeStatus">What's your current employment status?</label>
-            <select class="form-select" id="employeeStatus">
-              <option value="No answered" selected>Choose...</option>
-              <option value="Current Employed">Current Employed</option>
-              <option value="Self-Employed">Self-Employed</option>
-              <option value="Unemployed">Unemployed</option>
-              <option value="Student">Student</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-3">
-            <label class="input-group-text" id="basic-addon1" for="startDate">When can you start?</label>
-            <input id="startDate" class="form-control" type="date" />
-          </div>
-
           <div class="mb-3">
             <label for="formFile" class="form-label">Upload your Resume</label>
             <input  class="form-control" type="file" id="formFile">
             <!-- <button id="upload-button" class="btn btn-secondary" onclick="uploadFile()"> Upload file </button> -->
           </div>
 
-          <button type="button" class="btn btn-outline-success submit" onclick="submit()">Submit</button>
+          <div class="mb-3 readyInfo">
+            <p>ARE YOU READY TO BE PART OF <img class="readyImg" src="./images/CRC_Family.png" width="150" height="50"></img> ?</p>
+          </div>
+
+          <button id="btn" type="button" class="btn btn-outline-success submit" onclick="submit()">Submit</button>
     </div>
 
 
@@ -205,27 +199,6 @@
           }
 
           try{
-            if(document.getElementById('startDate').value !== ""){
-              formData.append("startDate",document.getElementById('startDate').value);
-              count++;
-            }else{
-              Swal.fire({
-                title: 'Error!',
-                text: 'Please enter a date and try again!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              })
-            }
-          }catch(error){
-            Swal.fire({
-              title: 'Error!',
-              text: 'Something wrong happened! Please contact the administrator.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            })
-          }
-
-          try{
             if(document.getElementById('position').value !== "No answered"){
               formData.append("position",document.getElementById('position').value);
               count++;
@@ -287,29 +260,8 @@
               confirmButtonText: 'OK'
             })
           }
-          
-          try{
-            if(document.getElementById('employeeStatus').value !== "No answered"){
-              formData.append("employeeStatus",document.getElementById('employeeStatus').value);
-              count++;
-            }else{
-              Swal.fire({
-                title: 'Error!',
-                text: 'Please enter your employee status and try again!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              })
-            }
-          }catch(error){
-            Swal.fire({
-              title: 'Error!',
-              text: 'Something wrong happened! Please contact the administrator.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            })
-          }
 
-          if(count === 9){
+          if(count === 7){
             //network request using POST method of fetch
             await fetch('http://localhost:3000/upload', { 
               mode:'no-cors',
@@ -339,9 +291,9 @@
           }
         }
 
-        async function submit(){
+        document.getElementById("btn").addEventListener('click',async function submit(){
           uploadFile();
-        }
+        });
        
     </script>
   </body>

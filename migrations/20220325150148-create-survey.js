@@ -26,12 +26,6 @@ module.exports = {
       resumeName: {
         type: Sequelize.STRING
       },
-      employeeStatus: {
-        type: Sequelize.STRING
-      },
-      startDate: {
-        type: Sequelize.DATE
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

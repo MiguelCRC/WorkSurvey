@@ -37,11 +37,8 @@ router.post("/upload", upload.single("file"), async function (request, response)
         phone: request.body.phone,
         position: request.body.position,
         location: request.body.location,
-        resumeName: request.body.resumeName,
-        employeeStatus: request.body.employeeStatus,
-        startDate: request.body.startDate,
+        resumeName: request.body.resumeName
       });
-
       return response.status(200).json({
         id: newSurvey.id,
       });
