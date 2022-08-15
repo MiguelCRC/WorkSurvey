@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const path = require("path");
 const multer = require("multer");
+const fs = require('fs');
 const Survey = require("../models").Survey;
 
 const Sequelize = require("sequelize");
@@ -12,7 +13,16 @@ var upload = null;
 
 storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    console.log(req.body)
+    const dir = `uploads/${req.body.completeName}`;
+    
+    fs.exists(dir, exist => {
+      if (!exist) {
+        return fs.mkdir(dir, error => cb(error, dir))
+      }
+      return cb(null, dir)
+      })
+    // cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     //call the callback, passing it the original file name
@@ -29,7 +39,7 @@ router.get("/", function (req, res, next) {
   );
 });
 
-router.post("/upload", upload.single("file"), async function (request, response) {
+router.post("/upload", upload.array("file"), async function (request, response) {
     try {
       let newSurvey = await Survey.create({
         completeName: request.body.completeName,

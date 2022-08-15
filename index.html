@@ -71,7 +71,7 @@
 
           <div class="mb-3">
             <label for="formFile" class="form-label">Upload your Resume</label>
-            <input  class="form-control" type="file" id="formFile">
+            <input  class="form-control" type="file" id="formFile" multiple='multiple'>
             <!-- <button id="upload-button" class="btn btn-secondary" onclick="uploadFile()"> Upload file </button> -->
           </div>
 
@@ -114,26 +114,6 @@
           let formData = new FormData();
           let count = 0;
 
-          try{
-            if(formFile.files[0]){
-              formData.append("file", formFile.files[0]);
-              count++;
-            }else{
-                Swal.fire({
-                title: 'Error!',
-                text: 'Please upload a file and try again!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              })
-            }
-          }catch(error){
-            Swal.fire({
-              title: 'Error!',
-              text: 'Something wrong happened! Please contact the administrator.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            })
-          }
 
           try{
             if(document.getElementById('fullName').value !== ""){
@@ -261,13 +241,41 @@
             })
           }
 
+          try{
+            if(formFile.files[0]){
+              for (var i = 0; i < formFile.files.length; i++) {
+                    var file = formFile.files[i];
+                    file.savefg = document.getElementById('fullName').value;
+                    console.log(file)
+                    formData.append("file", file);
+                }
+                console.log(formData,"formdata")
+              //formData.append("file", formFile.files[0]);
+              count++;
+            }else{
+                Swal.fire({
+                title: 'Error!',
+                text: 'Please upload a file and try again!',
+                icon: 'error',
+                confirmButtonText: 'OK'
+              })
+            }
+          }catch(error){
+            Swal.fire({
+              title: 'Error!',
+              text: 'Something wrong happened! Please contact the administrator.',
+              icon: 'error',
+              confirmButtonText: 'OK'
+            })
+          }
+
           if(count === 7){
             //network request using POST method of fetch
-            await fetch('http://localhost:3000/upload', { 
+            await fetch(`http://localhost:3000/upload`, { 
               mode:'no-cors',
               method: "POST", 
               body: formData,
-              files: formFile.files[0]
+              // files: formFile.files[0]
             }).then((response) => {
               document.getElementById('fullName').value = "";
               document.getElementById('phone').value = "";
@@ -284,6 +292,7 @@
                   confirmButtonText: 'OK'
                 })
               }else if(response.status === 500){
+                console.log(response.message)
                 Swal.fire({
                   title: 'Error!',
                   text: 'Something wrong happened! Please contact the administrator.',
